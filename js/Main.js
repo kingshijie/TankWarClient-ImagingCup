@@ -16,18 +16,30 @@
 
     var game = {
         res: [
+            {id:"bg", size:178, src:"images/bg.jpg"},
             {id:"empty", size:11, src:"images/b0.png"},
             {id:"house", size:36, src:"images/b6.png"},
-            {id:"warHouse", size:58, src:"images/b42.png"}
+            {id:"warHouse", size:58, src:"images/b42.png"},
+            {id:"wrench", size:30, src:"images/wrench.png"},
+            {id:"head_idle", size:58, src:"images/head_idle.png"},
+            {id:"body_Walk", size:58, src:"images/body_Walk.png"}
+
+        ],
+        buildingPositions : [
+            {x:100,y:100},
+            {x:400,y:100},
+            {x:600,y:100},
+            {x:400,y:400}
         ],
         container : null,
         timer : null,
         stage : null,
-        width : 980,
-        height : 545,
+        width : 0,
+        height : 0,
         fps : 40,
-        building : null,
-        em : null
+        buildings : [],
+        events : null,
+        buildingNum : 4
     };
 
     var ns = window.game = game;
@@ -142,7 +154,116 @@
     //启动游戏
     game.startup = function()
     {
+        //手持设备的特殊webkit设置
+        if(Q.isWebKit && Q.supportTouch)
+        {
+            document.body.style.webkitTouchCallout = "none";
+            document.body.style.webkitUserSelect = "none";
+            document.body.style.webkitTextSizeAdjust = "none";
+            document.body.style.webkitTapHighlightColor = "rgba(0,0,0,0)";
+        }
 
+        //初始化容器设置
+        var colors = ["#00c2eb", "#cbfeff"];
+        this.container = Q.getDOM("container");
+        this.container.style.overflow = "hidden";
+        this.container.style.background = "-moz-linear-gradient(top, "+ colors[0] +", "+ colors[1] +")";
+        this.container.style.background = "-webkit-gradient(linear, 0 0, 0 bottom, from("+ colors[0] +"), to("+ colors[1] +"))";
+        this.container.style.background = "-o-linear-gradient(top, "+ colors[0] +", "+ colors[1] +")";
+        this.container.style.filter = "progid:DXImageTransform.Microsoft.gradient(startColorstr="+ colors[0] +", endColorstr="+ colors[1] +")";
+        this.width = this.container.clientWidth;
+        this.height = this.container.clientHeight;
+
+        //获取URL参数设置
+        this.params = Q.getUrlParams();
+        this.fps = this.params.fps || 40;
+
+        //初始化context
+        var context = null;
+        if(this.params.canvas)
+        {
+            var canvas = Q.createDOM("canvas", {id:"canvas", width:this.width, height:this.height, style:{position:"absolute"}});
+            this.container.appendChild(canvas);
+            this.context = new Q.CanvasContext({canvas:canvas});
+        }else
+        {
+            this.context = new Q.DOMContext({canvas:this.container});
+        }
+
+        //创建舞台
+        this.stage = new Q.Stage({width:this.width, height:this.height, context:this.context, update:Q.delegate(this.update, this)});
+
+
+        //初始化定时器
+        var timer = new Q.Timer(1000 / this.fps);
+        timer.addListener(this.stage);
+        //timer.addListener(Q.Tween);
+        timer.start();
+        this.timer = timer;
+
+        //预加载背景音乐
+        //var audio = new Quark.Audio("sounds/test.mp3", true, true, true);
+        //this.audio = audio;
+
+        var em = new Q.EventManager();
+        var events = Q.supportTouch ? ["touchstart", "touchmove", "touchend"] : ["mousedown", "mousemove", "mouseup"];
+        em.registerStage(game.stage, events, true, true);
+        this.events = events;
+
+        this.showMain();
+
+    }
+
+    game.showMain = function()
+    {
+        //创建场景，请注意添加的顺序，下层的先加
+        //背景
+        var background = new Q.Bitmap({id:"background", image:this.getImage("bg")});
+        background.x = 0;
+        background.y = 0;
+        this.background = background;
+        this.stage.addChild(background);
+
+        //建筑
+        this.initBuildings();
+
+        //var squirrel = new game.Squirrel({id:"squirrel", x:200, y:160, autoSize:true});
+        //this.stage.addChild(squirrel);
+
+
+    }
+
+    //创建建筑群
+    game.initBuildings = function()
+    {
+        for(var i = 0; i < this.buildingNum; i++)
+        {
+            var bd = new game.Building({id:"building" + i, x:this.buildingPositions[i].x, y:this.buildingPositions[i].y, autoSize:true});
+
+            this.stage.addChild(bd);
+            this.buildings.push(bd);
+            bd.addEventListener(this.events[0], this.buildHouse);
+        }
+    }
+
+    game.buildHouse = function(e){
+        switch(e.eventTarget.type)
+        {
+            case game.Building.TYPE.EMPTY:
+                //build a house
+                e.eventTarget.type = game.Building.TYPE.HOUSE;
+                e.eventTarget.startBuild();
+                break;
+            default :
+                //upgrade or deconstruct the house
+                break;
+        }
+    }
+
+    //主更新方法
+    game.update = function(timeInfo)
+    {
+        this.frames++;
     }
 
 
