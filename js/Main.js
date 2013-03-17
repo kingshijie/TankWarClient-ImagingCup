@@ -17,13 +17,21 @@
     var game = {
         res: [
             {id:"bg", size:178, src:"images/bg.jpg"},
+            {id:"worldMap", size:986, src:"images/worldMap.png"},
+            {id:"buttons", size:43, src:"images/btns.png"},
             {id:"empty", size:11, src:"images/b0.png"},
             {id:"house", size:36, src:"images/b6.png"},
             {id:"warHouse", size:58, src:"images/b42.png"},
             {id:"wrench", size:30, src:"images/wrench.png"},
-            {id:"head_idle", size:58, src:"images/head_idle.png"},
-            {id:"body_Walk", size:58, src:"images/body_Walk.png"}
+            {id:"num1", size:16, src:"images/num1.png"},
+            {id:"num2", size:29, src:"images/num2.png"},
+            {id:"head_idle", size:12, src:"images/head_idle.png"},
+            {id:"body_Walk", size:42, src:"images/body_Walk.png"}
 
+        ],
+        cost : [
+            {id:"house", level1:30, level2:60},
+            {id:"warHouse", level1:60, level2:120}
         ],
         buildingPositions : [
             {x:100,y:100},
@@ -34,12 +42,20 @@
         container : null,
         timer : null,
         stage : null,
+        resources : 0,
+        resourcesNum : null,
         width : 0,
         height : 0,
         fps : 40,
         buildings : [],
         events : null,
-        buildingNum : 4
+        buildingNum : 0,
+        totalTime : 0,
+        fieldMap : null, //生产场景背景
+        worldMap : null, //世界地图背景
+        filedMapBtn : null,//生产场景按钮
+        worldMapBtn : null
+
     };
 
     var ns = window.game = game;
@@ -84,6 +100,9 @@
         loader.addEventListener("loaded", Q.delegate(this.onLoadLoaded, this));
         loader.addEventListener("complete", Q.delegate(this.onLoadComplete, this));
         loader.load(this.res);
+
+        //建筑物个数初始化
+        this.buildingNum = this.buildingPositions.length;
 
         /*//初始化渲染上下文，这里根据URL参数可选择是采用CanvasContext还是DOMContext
         var params = Q.getUrlParams();
@@ -139,7 +158,7 @@
 
         this.images = e.images;
         //初始化一些类
-
+        game.Num.init();
         //启动游戏
         this.startup();
     }
@@ -210,39 +229,87 @@
         em.registerStage(game.stage, events, true, true);
         this.events = events;
 
-        this.showMain();
+        this.showFieldMap();
 
     }
 
-    game.showMain = function()
+    game.showFieldMap = function()
     {
         //创建场景，请注意添加的顺序，下层的先加
+        game.stage.removeAllChildren();
         //背景
-        var background = new Q.Bitmap({id:"background", image:this.getImage("bg")});
-        background.x = 0;
-        background.y = 0;
-        this.background = background;
-        this.stage.addChild(background);
+        if(game.fieldMap == null){
+            var background = new Q.Bitmap({id:"field", image:game.getImage("bg")});
+            background.x = 0;
+            background.y = 0;
+            game.fieldMap = background;
+        }
+        game.stage.addChild(game.fieldMap);
 
         //建筑
-        this.initBuildings();
+        game.setBuildings();
 
-        //var squirrel = new game.Squirrel({id:"squirrel", x:200, y:160, autoSize:true});
-        //this.stage.addChild(squirrel);
+        //世界地图按钮
+        if(game.worldMapBtn == null){
+            var worldMapBtn = new Q.Button({id:"worldMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
+                up:{rect:[0,0,64,64]},
+                over:{rect:[64,0,64,64]},
+                down:{rect:[128,0,64,64]},
+                disabled:{rect:[192,0,64,64]}
+            });
+            worldMapBtn.addEventListener(game.events[0], game.showWorldMap);
+            game.worldMapBtn = worldMapBtn;
+        }
+        game.stage.addChild(game.worldMapBtn);
 
+    }
 
+    game.showWorldMap = function(e)
+    {
+        trace('switch to world map');
+        //清楚场景
+        game.stage.removeAllChildren();
+        //世界地图背景
+        if(game.worldMap == null){
+            var background = new Q.Bitmap({id:"worldMap", image:game.getImage("worldMap")});
+            background.x = 0;
+            background.y = 0;
+            game.worldMap = background;
+        }
+        game.stage.addChild(game.worldMap);
+
+        //切换回生产场景按钮
+        if(game.filedMapBtn== null){
+            var filedMapBtn = new Q.Button({id:"filedMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
+                up:{rect:[0,0,64,64]},
+                over:{rect:[64,0,64,64]},
+                down:{rect:[128,0,64,64]},
+                disabled:{rect:[192,0,64,64]}
+            });
+            filedMapBtn.addEventListener(game.events[0], game.showFieldMap);
+            game.filedMapBtn = filedMapBtn;
+        }
+        game.stage.addChild(game.filedMapBtn);
     }
 
     //创建建筑群
-    game.initBuildings = function()
+    game.setBuildings = function()
     {
-        for(var i = 0; i < this.buildingNum; i++)
-        {
-            var bd = new game.Building({id:"building" + i, x:this.buildingPositions[i].x, y:this.buildingPositions[i].y, autoSize:true});
+        if(this.buildings.length == 0){
+            for(var i = 0; i < this.buildingNum; i++)
+            {
+                var bd = new game.Building({id:"building" + i, x:this.buildingPositions[i].x, y:this.buildingPositions[i].y, autoSize:true});
 
-            this.stage.addChild(bd);
-            this.buildings.push(bd);
-            bd.addEventListener(this.events[0], this.buildHouse);
+                this.stage.addChild(bd);
+                this.buildings.push(bd);
+                bd.addEventListener(this.events[0], this.buildHouse);
+            }
+        }else{
+            for(var i = 0; i < this.buildingNum; i++)
+            {
+                var bd = this.buildings[i];
+                this.stage.addChild(bd);
+            }
         }
     }
 
@@ -260,10 +327,47 @@
         }
     }
 
+    //更新总得分
+    game.updateResources = function()
+    {
+        if(this.resourcesNum == null)
+        {
+            var container = new Q.DisplayObjectContainer({id:'resourcesNum', width:200, height:65});
+            var num0 = new ns.Num({id:"num0", type:ns.Num.Type.num2});
+            var num1 = new ns.Num({id:"num1", type:ns.Num.Type.num2});
+            var num2 = new ns.Num({id:"num2", type:ns.Num.Type.num2});
+            var num3 = new ns.Num({id:"num3", type:ns.Num.Type.num2});
+            num1.x = 50;
+            num2.x = 100;
+            num3.x = 150;
+            container.addChild(num0, num1, num2, num3);
+            container.scaleX = container.scaleY = 0.8;
+            container.x = this.width - container.getCurrentWidth() - 15 >> 0;
+            container.y = 15;
+            this.resourcesNum = container;
+        }
+        this.stage.addChild(this.resourcesNum);
+
+        this.resources += 1;
+
+        var str = this.resources.toString(), len = str.length;
+        str = len > 4 ? str.slice(len - 4) : str;
+        while(str.length < 4) str = "0" + str;
+        for(var i = 0; i < str.length; i++)
+        {
+            this.resourcesNum.getChildAt(i).setValue(Number(str[i]));
+        }
+    }
+
     //主更新方法
     game.update = function(timeInfo)
     {
         this.frames++;
+        this.totalTime += timeInfo.deltaTime;
+        if(this.totalTime > 1000){
+            this.updateResources();
+            this.totalTime = 0;
+        }
     }
 
 

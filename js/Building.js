@@ -64,7 +64,19 @@
         {
             case Building.TYPE.HOUSE:
                 this.state = (this.state + 1) % Building.STATE.NOTAVAILABLE;
-                this.type = Building.TYPE.HOUSE;
+                this.removeAllChildren();
+                this.avatar = new Q.Bitmap({id:'avatar' + this.id, image:this.getImage()});
+                this.wrench = new Q.MovieClip({id:'wrench' + this.id, image:game.getImage('wrench'), useFrames:true, interval:6, x:0, y:50});
+                this.wrench.addFrame([
+                    {rect:[0,0,128,128]},
+                    {rect:[128,0,128,128]},
+                    {rect:[256,0,128,128]}
+                ]);
+                this.addChild(this.avatar, this.wrench);
+                game.timer.delay(this.finishBuild,5000);
+                break;
+            case Building.TYPE.WARHOUSE:
+                this.state = (this.state + 1) % Building.STATE.NOTAVAILABLE;
                 this.removeAllChildren();
                 this.avatar = new Q.Bitmap({id:'avatar' + this.id, image:this.getImage()});
                 this.wrench = new Q.MovieClip({id:"wrench", image:game.getImage('wrench'), useFrames:true, interval:6, x:0, y:50});
@@ -74,16 +86,16 @@
                     {rect:[256,0,128,128]}
                 ]);
                 this.addChild(this.avatar, this.wrench);
-                game.stage.removeChildById(this.id);
-                game.stage.addChild(this);
                 break;
         }
     };
 
-    //建筑制造
-    Building.prototype.finishBuild = function()
+    //建造完成
+    Building.prototype.finishBuild = function(e)
     {
-
+        trace('finish building');
+        //e.eventTarget.removeChildById('wrench' + this.id);
+        //game.stage.removeChildById(this.id);
     };
 
     //建筑的更新函数，此方法会不断的被quark系统调用而产生跳跃动画。
