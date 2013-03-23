@@ -23,8 +23,10 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="17" selection-start="231" selection-end="231" vertical-scroll-proportion="-1.1538461">
-              <folding />
+            <state line="17" column="35" selection-start="849" selection-end="849" vertical-scroll-proportion="-8.576923">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -32,7 +34,7 @@
       <file leaf-file-name="Main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/Main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="313" column="0" selection-start="10426" selection-end="10426" vertical-scroll-proportion="0.33245382">
+            <state line="365" column="39" selection-start="12166" selection-end="12166" vertical-scroll-proportion="10.85989">
               <folding />
             </state>
           </provider>
@@ -59,7 +61,7 @@
       <file leaf-file-name="Building.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/Building.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="42" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
+            <state line="88" column="22" selection-start="2413" selection-end="2413" vertical-scroll-proportion="-7.6">
               <folding />
             </state>
           </provider>
@@ -68,7 +70,7 @@
       <file leaf-file-name="quark.base-1.0.0.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/quark.base-1.0.0.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3543" column="0" selection-start="78351" selection-end="78351" vertical-scroll-proportion="0.0">
+            <state line="3042" column="0" selection-start="66728" selection-end="66728" vertical-scroll-proportion="-2.68">
               <folding>
                 <marker date="1354644294000" expanded="false" signature="93185:93229" placeholder="..." />
               </folding>
@@ -90,9 +92,9 @@
         <option value="$PROJECT_DIR$/js/building.js" />
         <option value="$PROJECT_DIR$/squirrel.html" />
         <option value="$PROJECT_DIR$/js/Squirrel.js" />
-        <option value="$PROJECT_DIR$/js/Building.js" />
         <option value="$PROJECT_DIR$/js/Num.js" />
         <option value="$PROJECT_DIR$/js/Main.js" />
+        <option value="$PROJECT_DIR$/js/Building.js" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -209,13 +211,13 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TanksWar-ImageCup" />
+    <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TanksWar-ImageCup" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -283,14 +285,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="734" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1296" height="734" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12808274" sideWeight="0.3881119" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12808274" sideWeight="0.30769232" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29195803" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23468576" sideWeight="0.37237763" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23468576" sideWeight="0.36363637" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25174826" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -357,11 +359,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/js/Building.js</url>
-          <line>95</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/js/Main.js</url>
           <line>313</line>
           <option name="timeStamp" value="19" />
@@ -377,7 +374,7 @@
           <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="34" />
+      <option name="time" value="39" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -393,7 +390,9 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="63" selection-start="203" selection-end="267" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -409,7 +408,9 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="63" selection-start="203" selection-end="267" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -425,7 +426,9 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="63" selection-start="203" selection-end="267" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -457,10 +460,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Building.js">
+    <entry file="file://$PROJECT_DIR$/js/Num.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="42" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
+        <state line="69" column="10" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/quark.base-1.0.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3042" column="0" selection-start="66728" selection-end="66728" vertical-scroll-proportion="-2.68">
+          <folding>
+            <marker date="1354644294000" expanded="false" signature="93185:93229" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -471,32 +483,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Num.js">
+    <entry file="file://$PROJECT_DIR$/js/Building.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="10" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.0">
+        <state line="88" column="22" selection-start="2413" selection-end="2413" vertical-scroll-proportion="-7.6">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="231" selection-end="231" vertical-scroll-proportion="-1.1538461">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/quark.base-1.0.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3543" column="0" selection-start="78351" selection-end="78351" vertical-scroll-proportion="0.0">
+        <state line="17" column="35" selection-start="849" selection-end="849" vertical-scroll-proportion="-8.576923">
           <folding>
-            <marker date="1354644294000" expanded="false" signature="93185:93229" placeholder="..." />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="313" column="0" selection-start="10426" selection-end="10426" vertical-scroll-proportion="0.33245382">
+        <state line="365" column="39" selection-start="12166" selection-end="12166" vertical-scroll-proportion="10.85989">
           <folding />
         </state>
       </provider>

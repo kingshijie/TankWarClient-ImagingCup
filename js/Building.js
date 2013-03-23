@@ -5,10 +5,18 @@
         Building.superClass.constructor.call(this, props);
         this.id = props.id || Q.UIDUtil.createUID('Building');
         this.avatar = null;
+        this.buildingTime = 0;
 
         this.init();
     };
     Q.inherit(Building, Q.DisplayObjectContainer);
+
+    Building.BUILDINGSTAT =
+    {
+        INIT : 0,
+        BUILDING : 1,
+        FINISHED : 2
+    }
 
     Building.STATE =
     {
@@ -31,6 +39,7 @@
         //初始化参数
         this.state = Building.STATE.EMPTY;
         this.type = Building.TYPE.EMPTY;
+        this.buildingStat = Building.BUILDINGSTAT.INIT;
 
         trace(this.id);
 
@@ -73,6 +82,9 @@
                     {rect:[256,0,128,128]}
                 ]);
                 this.addChild(this.avatar, this.wrench);
+                //开始计算建造时间，时间清零
+                this.buildingTime = 0;
+                this.buildingStat = Building.BUILDINGSTAT.BUILDING;
                 game.timer.delay(this.finishBuild,5000);
                 break;
             case Building.TYPE.WARHOUSE:
@@ -91,15 +103,27 @@
     };
 
     //建造完成
-    Building.prototype.finishBuild = function(e)
+    Building.prototype.finishBuild = function()
     {
-        trace('finish building');
-        //e.eventTarget.removeChildById('wrench' + this.id);
-        //game.stage.removeChildById(this.id);
+        if(this.buildingStat == Building.BUILDINGSTAT.BUILDING){
+            this.buildingStat = Building.BUILDINGSTAT.FINISHED;
+            this.removeChildById('wrench' + this.id);
+            trace('FInish building',this.id);
+        }
     };
 
     //建筑的更新函数，此方法会不断的被quark系统调用而产生跳跃动画。
-    Building.prototype.update = function()
+    Building.prototype.update = function(timeInfo)
+    {
+        if(this.buildingStat == Building.BUILDINGSTAT.BUILDING){
+            this.buildingTime += timeInfo.deltaTime;
+            if(this.buildingTime > 5000){
+                this.finishBuild();
+            }
+        }
+    };
+
+    Building.prototype.step = function()
     {
 
     };
