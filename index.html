@@ -4,18 +4,53 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>坦克世界</title>
 
+    <!--css-->
+    <link href="./css/frame.css" type="text/css" rel="stylesheet" />
     <!--quarkjs-->
     <script type="text/javascript" src="./js/quark.base-1.0.0.js"></script>
     <script type="text/javascript" src="./js/Main.js"></script>
     <script type="text/javascript" src="./js/Building.js"></script>
-    <script type="text/javascript" src="./js/Squirrel.js"></script>
     <script type="text/javascript" src="./js/Num.js"></script>
 
 </head>
 <body >
 
 <div id="container" style="position: relative; top: -50%; width: 800px; height: 600px; margin: 0px auto; overflow: hidden; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(0, 194, 235)), to(rgb(203, 254, 255))); background-position: initial initial; background-repeat: initial initial;"></div>
-<div id="BldSel" style="position: absolute;"></div>
+<div id="menu1" style="background:#ffffff;display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div id="frame-ct">
+        <div id="frHeader">
+            <h2>选择建筑</h2>
+            <p>选择一个建筑物建设于所点路牌处</p>
+            <a href="#" class="modal_close" onclick="game.closeMenu('menu1')"></a>
+        </div>
+
+
+        <div class="txt-fld" onclick="game.buildHouse(Q.getDOM('menu1').className,game.Building.TYPE.HOUSE)">
+            <a class="btn" >
+                <img src="images/bl_2.png" />
+                <label for="">民居(100点资源)</label>
+                <p class="" id="">民居可以增加城市人口上限，民居可以训练士兵。</p>
+            </a>
+        </div>
+
+        <div class="txt-fld"  onclick="game.buildHouse(Q.getDOM('menu1').className,game.Building.TYPE.WARHOUSE)">
+            <a class="btn">
+                <img src="images/bl_14.png" />
+                <label for="">军工厂(200点资源)</label>
+                <p class="" id="">军工厂是训练和武装部队的场所，军工厂等级越高训练队列也越多。</p>
+            </a>
+        </div>
+
+        <div class="txt-fld">
+            <a  class="btn">
+                <label for=""></label>
+                <p class="" id=""></p>
+
+        </div>
+        <div class="frFoot"></div>
+
+    </div>
+</div>
 <div id="fps" style=""></div>
 
 </body>

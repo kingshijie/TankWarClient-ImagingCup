@@ -24,9 +24,7 @@
             {id:"warHouse", size:58, src:"images/b42.png"},
             {id:"wrench", size:30, src:"images/wrench.png"},
             {id:"num1", size:16, src:"images/num1.png"},
-            {id:"num2", size:29, src:"images/num2.png"},
-            {id:"head_idle", size:12, src:"images/head_idle.png"},
-            {id:"body_Walk", size:42, src:"images/body_Walk.png"}
+            {id:"num2", size:29, src:"images/num2.png"}
 
         ],
         cost : [
@@ -42,19 +40,23 @@
         container : null,
         timer : null,
         stage : null,
-        resources : 0,
+        resources : 150,
         resourcesNum : null,
         width : 0,
         height : 0,
         fps : 40,
         buildings : [],
+        initFlag : 0,
         events : null,
         buildingNum : 0,
         totalTime : 0,
         fieldMap : null, //生产场景背景
         worldMap : null, //世界地图背景
         filedMapBtn : null,//生产场景按钮
-        worldMapBtn : null
+        worldMapBtn : null,
+        menu1 : null, //选择建筑菜单
+        soldierNum : 0, //士兵数量
+        tankNum : 0     //坦克数量
 
     };
 
@@ -64,12 +66,6 @@
     {
         //初始化游戏场景容器，设定背景渐变样式
         var container = Q.getDOM("container");
-        /*container = Q.getDOM("container");
-        container.style.overflow = "hidden";
-        container.style.background = "-moz-linear-gradient(top, #00889d, #94d7e1, #58B000)";
-        container.style.background = "-webkit-gradient(linear, 0 0, 0 bottom, from(#00889d), to(#58B000), color-stop(0.5,#94d7e1))";
-        container.style.background = "-o-linear-gradient(top, #00889d, #94d7e1, #58B000)";
-        container.style.filter = "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00889d, endColorstr=#94d7e1)";*/
 
         //加载进度信息
         var div = document.createElement("div");
@@ -103,43 +99,6 @@
 
         //建筑物个数初始化
         this.buildingNum = this.buildingPositions.length;
-
-        /*//初始化渲染上下文，这里根据URL参数可选择是采用CanvasContext还是DOMContext
-        var params = Q.getUrlParams();
-        if(params.canvas)
-        {
-            var canvas = Quark.createDOM("canvas", {width:game.width, height:game.height, style:{position:"absolute",backgroundColor:"#eee"}});
-            container.appendChild(canvas);
-            context = new Quark.CanvasContext({canvas:canvas});
-        }else
-        {
-            context = new Q.DOMContext({canvas:container});
-        }
-
-        //初始化舞台
-        game.stage = new Q.Stage({context:context, width:game.width, height:game.height,
-            update:function()
-            {
-                frames++;
-            }});
-
-        //初始化timer并启动
-        game.timer = new Q.Timer(1000/game.fps);
-        game.timer.addListener(game.stage);
-        game.timer.start();
-
-        //注册舞台事件，使舞台上的元素能接收交互事件
-        game.em = new Q.EventManager();
-        var events = Q.supportTouch ? ["touchend"] : ["mouseup"];
-        game.em.registerStage(game.stage, events, true, true);
-
-        //创建厂房，并添加到舞台
-        //game.building = new Building({id:"building", x:200, y:160, autoSize:true});
-        //game.stage.addChild(game.building);
-
-
-        //game.building.addEventListener(events[0], game.building.setup);*/
-
     }
 
     //加载进度条
@@ -238,7 +197,7 @@
         //创建场景，请注意添加的顺序，下层的先加
         game.stage.removeAllChildren();
         //背景
-        if(game.fieldMap == null){
+        if(null == game.fieldMap){
             var background = new Q.Bitmap({id:"field", image:game.getImage("bg")});
             background.x = 0;
             background.y = 0;
@@ -250,7 +209,7 @@
         game.setBuildings();
 
         //世界地图按钮
-        if(game.worldMapBtn == null){
+        if(null == game.worldMapBtn){
             var worldMapBtn = new Q.Button({id:"worldMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
                 up:{rect:[0,0,64,64]},
                 over:{rect:[64,0,64,64]},
@@ -270,7 +229,7 @@
         //清楚场景
         game.stage.removeAllChildren();
         //世界地图背景
-        if(game.worldMap == null){
+        if(null == game.worldMap){
             var background = new Q.Bitmap({id:"worldMap", image:game.getImage("worldMap")});
             background.x = 0;
             background.y = 0;
@@ -279,7 +238,7 @@
         game.stage.addChild(game.worldMap);
 
         //切换回生产场景按钮
-        if(game.filedMapBtn== null){
+        if(null == game.filedMapBtn){
             var filedMapBtn = new Q.Button({id:"filedMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
                 up:{rect:[0,0,64,64]},
                 over:{rect:[64,0,64,64]},
@@ -295,39 +254,54 @@
     //创建建筑群
     game.setBuildings = function()
     {
-        if(this.buildings.length == 0){
+        if(0 == this.initFlag){
             for(var i = 0; i < this.buildingNum; i++)
             {
-                var bd = new game.Building({id:"building" + i, x:this.buildingPositions[i].x, y:this.buildingPositions[i].y, autoSize:true});
+                var id = "building" + i;
+                var bd = new game.Building({id:id, x:this.buildingPositions[i].x, y:this.buildingPositions[i].y, autoSize:true});
 
                 this.stage.addChild(bd);
-                this.buildings.push(bd);
-                bd.addEventListener(this.events[0], this.buildHouse);
+                bd.addEventListener(this.events[0], this.showBuildingMenu);
+                this.buildings[id] = bd;
             }
+            this.initFlag = 1;
         }else{
-            for(var i = 0; i < this.buildingNum; i++)
+            for(var id in this.buildings)
             {
-                var bd = this.buildings[i];
+                var bd = this.buildings[id];
                 this.stage.addChild(bd);
             }
         }
     }
 
-    game.buildHouse = function(e){
-        switch(e.eventTarget.type)
-        {
-            case game.Building.TYPE.EMPTY:
-                //build a house
-                e.eventTarget.type = game.Building.TYPE.HOUSE;
-                e.eventTarget.startBuild();
-                break;
-            default :
-                //upgrade or deconstruct the house
-                break;
+    game.showBuildingMenu = function(e){
+        trace(e.toElement.id);
+        if(game.Building.STATE.EMPTY == e.eventTarget.state){
+            //打开建造菜单
+            if(null == game.menu1){
+                game.menu1 = document.getElementById('menu1');
+            }
+            game.menu1.style.display = 'block';
+            //将id赋值到class属性
+            game.menu1.className = e.eventTarget.id;
+        }else{
+            //打开升级与造兵菜单
+        }
+
+    }
+
+    game.buildHouse = function(buildingId,type){
+        trace(buildingId,type);
+        this.closeMenu('menu1');
+        if(this.resources >= game.Building.COST[type]){
+            this.resources -= game.Building.COST[type];
+            this.buildings[buildingId].startBuild(type);
+        }else{
+        this.showWarning("您的资源不够！");
         }
     }
 
-    //更新总得分
+    //更新总资源
     game.updateResources = function()
     {
         if(this.resourcesNum == null)
@@ -375,6 +349,15 @@
     game.hideNavBar = function()
     {
         window.scrollTo(0, 1);
+    }
+
+    game.closeMenu = function(str){
+        var menu = Q.getDOM(str);
+        menu.style.display = 'none';
+    }
+
+    game.showWarning = function(str){
+        alert(str);
     }
 
 //重新计算舞台stage在页面中的偏移

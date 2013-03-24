@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/* CSS Document */
+ #frame {
+width: 404px;
+padding-bottom: 2px;
+display:none;
+background: #FFF;
+border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+#test {
+width: 600px;
+padding: 30px;
+display:none;
+background: #FFF;
+border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+#test p { color: #666; text-shadow: none; }
+#frHeader { background: url('../images/hd-bg.png'); padding: 5px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+#frHeader h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#frHeader p { color: #444; font-size: 1em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+#frame .txt-fld { position: relative; width: 364px; padding: 14px 20px; border-bottom: 1px solid #EEE; }
+#frame .btn-fld { width: 254px; overflow: hidden; padding: 12px 20px 12px 130px; }
+#frame .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left; }
+
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+button {
+float: right;
+font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+background: #3F9D4A;
+border: none;
+width: auto;
+overflow: visible;
+font-size: 1.4em;
+color: #FFF;
+padding: 7px 10px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../images/modal_close.png); z-index: 2; }
+div.txt-fld:hover{
+	background-color:#efefef;}
+
