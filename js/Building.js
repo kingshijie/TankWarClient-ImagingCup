@@ -123,17 +123,19 @@
     };
 
     Building.prototype.addWrench = function(){
-        var wrench = new Q.MovieClip({id:'wrench' + this.id, image:game.getImage('wrench'), useFrames:true, interval:6, x:0, y:50});
+        var wrench = new Q.MovieClip({id:'wrench' + this.id, image:game.getImage('wrench'), useFrames:true, interval:6, x:80, y:100});
         wrench.addFrame([
-            {rect:[0,0,128,128]},
-            {rect:[128,0,128,128]},
-            {rect:[256,0,128,128]}
+            {rect:[0,0,45,44]},
+            {rect:[45,0,45,44]},
+            {rect:[90,0,45,44]},
+            {rect:[135,0,45,44]}
         ]);
         return wrench;
     }
 
     Building.prototype.removeWrench = function(){
         this.removeChildById('wrench' + this.id);
+
     }
 
 })();

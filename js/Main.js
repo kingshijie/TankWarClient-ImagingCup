@@ -18,7 +18,7 @@
         res: [
             {id:"bg", size:178, src:"images/bg.jpg"},
             {id:"worldMap", size:986, src:"images/worldMap.png"},
-            {id:"buttons", size:43, src:"images/btns.png"},
+            {id:"buttons", size:43, src:"images/btns1.png"},
             {id:"empty", size:11, src:"images/b0.png"},
             {id:"house", size:36, src:"images/b6.png"},
             {id:"warHouse", size:58, src:"images/b42.png"},
@@ -35,7 +35,8 @@
             {x:100,y:100},
             {x:400,y:100},
             {x:600,y:100},
-            {x:400,y:400}
+            {x:30,y:200},
+            {x:400,y:400},
         ],
         container : null,
         timer : null,
@@ -210,11 +211,11 @@
 
         //世界地图按钮
         if(null == game.worldMapBtn){
-            var worldMapBtn = new Q.Button({id:"worldMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
+            var worldMapBtn = new Q.Button({id:"worldMapBtn", image:game.getImage('buttons'), x:720, y:520, width:64, height:64,
                 up:{rect:[0,0,64,64]},
                 over:{rect:[64,0,64,64]},
-                down:{rect:[128,0,64,64]},
-                disabled:{rect:[192,0,64,64]}
+                down:{rect:[64,0,64,64]},
+                disabled:{rect:[0,0,64,64]}
             });
             worldMapBtn.addEventListener(game.events[0], game.showWorldMap);
             game.worldMapBtn = worldMapBtn;
@@ -239,11 +240,11 @@
 
         //切换回生产场景按钮
         if(null == game.filedMapBtn){
-            var filedMapBtn = new Q.Button({id:"filedMapBtn", image:game.getImage('buttons'), x:50, y:50, width:64, height:64,
+            var filedMapBtn = new Q.Button({id:"filedMapBtn", image:game.getImage('buttons'), x:720, y:520, width:64, height:64,
                 up:{rect:[0,0,64,64]},
                 over:{rect:[64,0,64,64]},
-                down:{rect:[128,0,64,64]},
-                disabled:{rect:[192,0,64,64]}
+                down:{rect:[64,0,64,64]},
+                disabled:{rect:[64,0,64,64]}
             });
             filedMapBtn.addEventListener(game.events[0], game.showFieldMap);
             game.filedMapBtn = filedMapBtn;
